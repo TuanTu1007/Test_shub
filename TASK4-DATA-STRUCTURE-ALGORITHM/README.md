@@ -20,16 +20,13 @@
 ## Cấu trúc dự án
 
 ```
-project/
-│
-├─ task4.py          # Script xử lý truy vấn và gửi kết quả
-├─ .env             # Chứa các biến môi trường INPUT_URL và OUTPUT_URL
-└─ README.md
+├── main.py # Chứa toàn bộ code xử lý
+└── README.md # Tài liệu mô tả
 ```
 
 ## Hướng dẫn thực thi
 ### Yêu cầu:
-- Python 3.10+
+- Python 3.7+
 - Thư viện `requests`
 
 Cài đặt requests:
