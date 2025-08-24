@@ -1,10 +1,12 @@
-import * as XLSX from 'xlsx';
+import * as XLSX from "xlsx";
 
 export const parseExcelFile = (file, callback) => {
   const reader = new FileReader();
+
   reader.onload = (event) => {
-    const binaryStr = event.target.result;
-    const workbook = XLSX.read(binaryStr, { type: 'binary' });
+    const data = new Uint8Array(event.target.result); 
+    const workbook = XLSX.read(data, { type: "array" }); 
+
     const sheetName = workbook.SheetNames[0];
     const sheet = workbook.Sheets[sheetName];
     const jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
@@ -20,10 +22,11 @@ export const parseExcelFile = (file, callback) => {
         });
         return obj;
       })
-      .filter((row) => row['STT']); 
+      .filter((row) => row["STT"]); 
 
-    console.log('Parsed data:', parsedData); 
+    console.log("Parsed data:", parsedData);
     callback(parsedData);
   };
-  reader.readAsBinaryString(file);
+
+  reader.readAsArrayBuffer(file);
 };
