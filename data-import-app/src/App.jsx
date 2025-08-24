@@ -1,37 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import FileUploader from './components/FileUploader';
+import TimeFilter from './components/TimeFilter';
+import ReportResult from './components/ReportResult';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [data, setData] = useState([]);
+  const [totalAmount, setTotalAmount] = useState(null);
+
+  const handleDataParsed = (parsedData) => {
+    setData(parsedData);
+    setTotalAmount(null); 
+  };
+
+  const handleTotalCalculated = (total) => {
+    setTotalAmount(total);
+  };
 
   return (
-    <>
-    <h1 className="text-3xl font-bold text-red-600">Hello Tailwind!</h1>
-
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="min-h-screen w-full flex items-center justify-center bg-gray-100">
+      <div className="w-full max-w-md p-6 font-sans bg-white rounded-2xl shadow-lg">
+        <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+          Báo Cáo Doanh Thu Xăng Dầu
+        </h1>
+        <FileUploader onDataParsed={handleDataParsed} />
+        <TimeFilter data={data} onTotalCalculated={handleTotalCalculated} />
+        <ReportResult data={data} totalAmount={totalAmount} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
