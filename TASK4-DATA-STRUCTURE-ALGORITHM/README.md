@@ -20,18 +20,19 @@
 ## Cấu trúc dự án
 
 ```
-├── main.py # Chứa toàn bộ code xử lý
-└── README.md # Tài liệu mô tả
+.
+├── TASK4-DATA-STRUCTURE-ALGORITHM
+│   ├── task4.py        # Code chính
+│   ├── .env            # Chứa API URL
+│   └── README.md
 ```
 
 ## Hướng dẫn thực thi
-### Yêu cầu:
-- Python 3.7+
-- Thư viện `requests`
-
-Cài đặt requests:
+## ⚙️ Yêu cầu
+- Python 3.8+  
+- Thư viện:
 ```
-pip install requests
+pip install requests python-dotenv
 ```
 
 ### Chạy chương trình
