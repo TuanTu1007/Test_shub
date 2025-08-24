@@ -1,7 +1,11 @@
+import os
+from dotenv import load_dotenv
 import requests
 
+load_dotenv()
+
 # Lấy dữ liệu input
-url_input = "REMOVED"
+url_input = os.getenv("INPUT_URL")
 resp = requests.get(url_input)
 input_data = resp.json()
 
@@ -37,7 +41,7 @@ for q in queries:
 print(results)
 
 # Gửi kết quả
-url_output = "REMOVED"
+url_output = os.getenv("OUTPUT_URL")
 headers = {
     "Authorization": f"Bearer {token}",
     "Content-Type": "application/json"
