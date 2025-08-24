@@ -15,8 +15,8 @@ CREATE TABLE gas_station (
 -- Bảng hàng hóa
 CREATE TABLE product (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(120) NOT NULL,        -- Ví dụ: Xăng A95, E5, Dầu DO
-  sku VARCHAR(30) UNIQUE,            -- Mã: A95, E5, DO
+  name VARCHAR(120) NOT NULL,        
+  sku VARCHAR(30) UNIQUE,            
   unit VARCHAR(20) DEFAULT 'liter',
   active BOOLEAN DEFAULT TRUE,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -27,8 +27,8 @@ CREATE TABLE product (
 CREATE TABLE pump (
   id INT AUTO_INCREMENT PRIMARY KEY,
   station_id INT NOT NULL,
-  code VARCHAR(30) NOT NULL,         -- Ví dụ: P01
-  product_id INT NOT NULL,           -- Trụ bơm loại hàng hóa nào
+  code VARCHAR(30) NOT NULL,         
+  product_id INT NOT NULL,           
   status VARCHAR(20) DEFAULT 'active',
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -47,7 +47,7 @@ CREATE TABLE sale_txn (
   quantity_liter DECIMAL(12,3) NOT NULL,
   unit_price DECIMAL(12,4) NOT NULL,
   total_amount DECIMAL(14,2) NOT NULL,
-  payment_method VARCHAR(20),        -- cash, card, ewallet
+  payment_method VARCHAR(20),        
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT fk_txn_station FOREIGN KEY (station_id) REFERENCES gas_station(id),
   CONSTRAINT fk_txn_pump FOREIGN KEY (pump_id) REFERENCES pump(id),
@@ -83,7 +83,7 @@ VALUES
   (2, 3, 3, '2025-08-01 11:00:00', 25.0, 21000, 25.0*21000, 'cash');
 
 
--- 1.
+-- 1. Lấy tất cả giao dịch của 1 trạm trong khoảng ngày
 SELECT 
     t.id AS transaction_id,
     t.txn_time,
@@ -98,33 +98,33 @@ FROM sale_txn t
 JOIN gas_station s ON t.station_id = s.id
 JOIN pump p ON t.pump_id = p.id
 JOIN product pr ON t.product_id = pr.id
-WHERE t.station_id = 1   -- ID trạm cần lấy
+WHERE t.station_id = 1   
   AND t.txn_time BETWEEN '2025-08-01' AND '2025-08-02'
 ORDER BY t.txn_time;
 
--- 2.
+-- 2. Tổng doanh thu theo ngày cho 1 trụ bơm
 SELECT 
     DATE(t.txn_time) AS txn_date,
     p.code AS pump_code,
     SUM(t.total_amount) AS total_revenue
 FROM sale_txn t
 JOIN pump p ON t.pump_id = p.id
-WHERE t.pump_id = 1   -- ID trụ bơm cần lấy
+WHERE t.pump_id = 1   
 GROUP BY DATE(t.txn_time), p.code
 ORDER BY txn_date;
 
--- 3
+-- 3 Tổng doanh thu theo ngày cho 1 trạm
 SELECT 
     DATE(t.txn_time) AS txn_date,
     s.name AS station_name,
     SUM(t.total_amount) AS total_revenue
 FROM sale_txn t
 JOIN gas_station s ON t.station_id = s.id
-WHERE t.station_id = 1   -- ID trạm cần lấy
+WHERE t.station_id = 1   
 GROUP BY DATE(t.txn_time), s.name
 ORDER BY txn_date;
 
--- 4
+-- 4 Lấy top 3 hàng hoá bán chạy nhất và tổng số lít tại một trạm trong tháng
 SELECT 
     pr.name AS product_name,
     SUM(t.quantity_liter) AS total_liter

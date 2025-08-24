@@ -20,18 +20,21 @@
 ## Cấu trúc dự án
 
 ```
-├── main.py # Chứa toàn bộ code xử lý
-└── README.md # Tài liệu mô tả
+project/
+│
+├─ task4.py          # Script xử lý truy vấn và gửi kết quả
+├─ .env             # Chứa các biến môi trường INPUT_URL và OUTPUT_URL
+└─ README.md
 ```
 
 ## Hướng dẫn thực thi
 ### Yêu cầu:
-- Python 3.7+
+- Python 3.10+
 - Thư viện `requests`
 
 Cài đặt requests:
 ```
-pip install requests
+pip install requests python-dotenv
 ```
 
 ### Chạy chương trình
