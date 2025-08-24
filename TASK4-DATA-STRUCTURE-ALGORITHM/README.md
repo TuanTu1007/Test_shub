@@ -20,14 +20,17 @@
 ## Cấu trúc dự án
 
 ```
-├── main.py # Chứa toàn bộ code xử lý
-└── README.md # Tài liệu mô tả
+project/
+│
+├─ main.py          # Script xử lý truy vấn và gửi kết quả
+├─ .env             # Chứa các biến môi trường INPUT_URL và OUTPUT_URL
+└─ README.md
 ```
 
 ## Hướng dẫn thực thi
 ### Yêu cầu:
-- Python 3.7+
-- Thư viện `requests`
+- Python 3.10+
+- Thư viện `requests, dotenv`
 
 Cài đặt requests:
 ```
